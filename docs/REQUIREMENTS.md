@@ -20,4 +20,4 @@ The target role is a full-stack software engineering role in an AI-focused clien
 | Communication / client leadership | Business hypothesis, tradeoffs, evidence map, demo and plain-language handoff | No client engagement or local-language proficiency evidence |
 | Education / degree / 2+ years | Must come from the candidate's actual history | Never infer from this repository |
 
-Container build verification comes from the successful Linux quality job in [the actual Actions run](https://github.com/Pavan-amikula/forgesignal/actions/runs/40123675295). Cloud deployment remains untested; Bicep compilation verifies template syntax only. The local execution reports are included separately.
+Container build verification comes from the successful Linux quality job in [the actual Actions run](https://github.com/Pavan-amikula/forgesignal/actions/runs/40126280694). Cloud deployment remains untested; Bicep compilation verifies template syntax only. The local execution reports are included separately.
