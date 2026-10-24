@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "Live replay start/pause",
+    "Cited evidence response",
+    "Work-order draft",
+    "Supervisor approval and audit",
+    "Evaluation view",
+    "Evidence library",
+    "Asset search",
+    "Line filtering",
+    "JSON export",
+    "390px mobile overflow check"
+  ],
+  "browser_errors": [],
+  "viewport": "1440x1080 and 390x844",
+  "recording": "Silent, captioned real browser walkthrough; synthetic data replay"
+}

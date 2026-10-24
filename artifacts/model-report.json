@@ -1,0 +1,62 @@
+{
+  "dataset": "UCI AI4I 2020 (synthetic)",
+  "sha256": "dc6630cd9b1f0f853922fad78a1b6436570d3f1ec863f1dd5c4340ac56bc8a8e",
+  "task": "Current-state failure classification; not future failure forecasting",
+  "seed": 42,
+  "split": {
+    "train": 6000,
+    "validation": 2000,
+    "test": 2000
+  },
+  "features": [
+    "Type",
+    "Air temperature [K]",
+    "Process temperature [K]",
+    "Rotational speed [rpm]",
+    "Torque [Nm]",
+    "Tool wear [min]"
+  ],
+  "threshold": 0.24,
+  "threshold_selection": "Maximum validation F1; test set used once for final report",
+  "test": {
+    "average_precision": 0.8233,
+    "roc_auc": 0.9732,
+    "precision": 0.7162,
+    "recall": 0.7794,
+    "f1": 0.7465,
+    "confusion_matrix": [
+      [
+        1911,
+        21
+      ],
+      [
+        15,
+        53
+      ]
+    ]
+  },
+  "baseline": {
+    "average_precision": 0.034,
+    "roc_auc": 0.5,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "confusion_matrix": [
+      [
+        1932,
+        0
+      ],
+      [
+        68,
+        0
+      ]
+    ]
+  },
+  "test_positives": 68,
+  "limitations": [
+    "Synthetic benchmark, no field validation",
+    "Random stratified split is not a temporal generalization test",
+    "Scores are not calibrated probabilities",
+    "Maintenance and financial impact are not measured"
+  ]
+}

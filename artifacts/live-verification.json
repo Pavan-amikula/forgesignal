@@ -1,0 +1,25 @@
+{
+  "sse": {
+    "messages": 3,
+    "events_before": 6,
+    "events_after": 8,
+    "replay_advances": true
+  },
+  "snapshot_latency": {
+    "requests": 50,
+    "concurrency": 1,
+    "median_ms": 8.12,
+    "p95_ms": 9.21,
+    "environment": "Local Windows loopback; not a capacity or production SLO claim"
+  },
+  "mcp": {
+    "initialized": true,
+    "tools": [
+      "search_runbooks",
+      "fleet_snapshot"
+    ],
+    "search_runbooks": "passed",
+    "fleet_snapshot": "passed",
+    "transport": "stdio"
+  }
+}

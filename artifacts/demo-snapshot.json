@@ -1,0 +1,232 @@
+{
+  "assets": [
+    {
+      "id": "CNC-01",
+      "name": "Precision mill 01",
+      "line": "Machining A",
+      "reading": {
+        "event_id": "replay-1206aa81a4e541b1880cd006a8b8287c",
+        "asset_id": "CNC-01",
+        "type": "L",
+        "air_temperature": 302.4,
+        "process_temperature": 310,
+        "rpm": 1426,
+        "torque": 46.6,
+        "tool_wear": 102
+      },
+      "score": 0.012,
+      "timestamp": "2026-10-24T18:59:42.580428+00:00",
+      "history": [
+        {
+          "score": 0.0142,
+          "rpm": 1363
+        },
+        {
+          "score": 0.1252,
+          "rpm": 1345
+        },
+        {
+          "score": 0.8734,
+          "rpm": 1357
+        },
+        {
+          "score": 0.012,
+          "rpm": 1426
+        }
+      ]
+    },
+    {
+      "id": "CNC-02",
+      "name": "Precision mill 02",
+      "line": "Machining A",
+      "reading": {
+        "event_id": "replay-76fd3397f3e6445f85f8205e1d209f51",
+        "asset_id": "CNC-02",
+        "type": "M",
+        "air_temperature": 299.3,
+        "process_temperature": 309.3,
+        "rpm": 1471,
+        "torque": 46,
+        "tool_wear": 42
+      },
+      "score": 0.0006,
+      "timestamp": "2026-10-24T18:59:44.614250+00:00",
+      "history": [
+        {
+          "score": 0.1252,
+          "rpm": 1345
+        },
+        {
+          "score": 0.0002,
+          "rpm": 1513
+        },
+        {
+          "score": 0.0006,
+          "rpm": 1471
+        }
+      ]
+    },
+    {
+      "id": "CNC-03",
+      "name": "Turning center 03",
+      "line": "Machining A",
+      "reading": {
+        "event_id": "replay-c9b8946264e54be1a8cf7bd4f570dad6",
+        "asset_id": "CNC-03",
+        "type": "L",
+        "air_temperature": 302.5,
+        "process_temperature": 311.4,
+        "rpm": 1559,
+        "torque": 37.6,
+        "tool_wear": 209
+      },
+      "score": 0.0812,
+      "timestamp": "2026-10-24T18:52:26.757018+00:00",
+      "history": [
+        {
+          "score": 0.0002,
+          "rpm": 1513
+        },
+        {
+          "score": 0.0812,
+          "rpm": 1559
+        }
+      ]
+    },
+    {
+      "id": "CNC-04",
+      "name": "Finishing mill 04",
+      "line": "Machining B",
+      "reading": {
+        "event_id": "replay-b38f88b59690407496e6a9c31f07188a",
+        "asset_id": "CNC-04",
+        "type": "H",
+        "air_temperature": 295.6,
+        "process_temperature": 306.3,
+        "rpm": 1509,
+        "torque": 35.8,
+        "tool_wear": 60
+      },
+      "score": 0.0008,
+      "timestamp": "2026-10-24T18:52:28.796013+00:00",
+      "history": [
+        {
+          "score": 0.0812,
+          "rpm": 1559
+        },
+        {
+          "score": 0.0008,
+          "rpm": 1509
+        }
+      ]
+    },
+    {
+      "id": "CNC-05",
+      "name": "Turning center 05",
+      "line": "Machining B",
+      "reading": {
+        "event_id": "replay-b934bef5949143c1bfedc45c88cd7698",
+        "asset_id": "CNC-05",
+        "type": "H",
+        "air_temperature": 300.5,
+        "process_temperature": 310,
+        "rpm": 1358,
+        "torque": 60.4,
+        "tool_wear": 102
+      },
+      "score": 0.0321,
+      "timestamp": "2026-10-24T18:52:30.831504+00:00",
+      "history": [
+        {
+          "score": 0.0008,
+          "rpm": 1509
+        },
+        {
+          "score": 0.0321,
+          "rpm": 1358
+        }
+      ]
+    },
+    {
+      "id": "CNC-06",
+      "name": "Precision mill 06",
+      "line": "Machining B",
+      "reading": {
+        "event_id": "replay-c4ca78be5dc04ef2b950560de96d3989",
+        "asset_id": "CNC-06",
+        "type": "H",
+        "air_temperature": 301.3,
+        "process_temperature": 310.1,
+        "rpm": 1455,
+        "torque": 44.1,
+        "tool_wear": 188
+      },
+      "score": 0.0004,
+      "timestamp": "2026-10-24T18:59:40.548457+00:00",
+      "history": [
+        {
+          "score": 0.0321,
+          "rpm": 1358
+        },
+        {
+          "score": 0.0004,
+          "rpm": 1455
+        }
+      ]
+    }
+  ],
+  "events": 15,
+  "orders": [
+    {
+      "id": 2,
+      "asset_id": "CNC-01",
+      "title": "Inspect CNC-01: review operating signals",
+      "status": "approved",
+      "evidence": "{\"id\": \"CNC-01\", \"name\": \"Precision mill 01\", \"line\": \"Machining A\", \"reading\": {\"event_id\": \"replay-1206aa81a4e541b1880cd006a8b8287c\", \"asset_id\": \"CNC-01\", \"type\": \"L\", \"air_temperature\": 302.4, \"process_temperature\": 310.0, \"rpm\": 1426.0, \"torque\": 46.6, \"tool_wear\": 102.0}, \"score\": 0.012, \"timestamp\": \"2026-10-24T18:59:42.580428+00:00\", \"history\": [{\"score\": 0.0142, \"rpm\": 1363.0}, {\"score\": 0.1252, \"rpm\": 1345.0}, {\"score\": 0.8734, \"rpm\": 1357.0}, {\"score\": 0.012, \"rpm\": 1426.0}]}",
+      "created_at": "2026-10-24T18:59:54.527382+00:00"
+    },
+    {
+      "id": 1,
+      "asset_id": "CNC-01",
+      "title": "Inspect CNC-01: review operating signals",
+      "status": "approved",
+      "evidence": "{\"id\": \"CNC-01\", \"name\": \"Precision mill 01\", \"line\": \"Machining A\", \"reading\": {\"event_id\": \"replay-a0a53d39c1224c57a343dceca4d5064b\", \"asset_id\": \"CNC-01\", \"type\": \"L\", \"air_temperature\": 300.5, \"process_temperature\": 309.8, \"rpm\": 1345.0, \"torque\": 62.7, \"tool_wear\": 153.0}, \"score\": 0.1252, \"timestamp\": \"2026-10-24T18:52:10.643200+00:00\", \"history\": [{\"score\": 0.0142, \"rpm\": 1363.0}, {\"score\": 0.1252, \"rpm\": 1345.0}]}",
+      "created_at": "2026-10-24T18:52:41.831517+00:00"
+    }
+  ],
+  "audit": [
+    {
+      "id": 4,
+      "order_id": 2,
+      "action": "approved",
+      "actor": "local-demo-supervisor",
+      "timestamp": "2026-10-24T18:59:57.588467+00:00"
+    },
+    {
+      "id": 3,
+      "order_id": 2,
+      "action": "proposed",
+      "actor": "local-demo-supervisor",
+      "timestamp": "2026-10-24T18:59:54.527435+00:00"
+    },
+    {
+      "id": 2,
+      "order_id": 1,
+      "action": "approved",
+      "actor": "local-demo-supervisor",
+      "timestamp": "2026-10-24T18:52:44.926503+00:00"
+    },
+    {
+      "id": 1,
+      "order_id": 1,
+      "action": "proposed",
+      "actor": "local-demo-supervisor",
+      "timestamp": "2026-10-24T18:52:41.831616+00:00"
+    }
+  ],
+  "replay_running": false,
+  "threshold": 0.24,
+  "source": "UCI AI4I synthetic replay",
+  "timestamp": "2026-10-24T19:00:11.773176+00:00",
+  "write_auth_required": false
+}

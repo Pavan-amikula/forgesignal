@@ -1,0 +1,2 @@
+{"event_id":"customer-example-001","asset_id":"CNC-01","type":"L","air_temperature":300,"process_temperature":310,"rpm":1500,"torque":40,"tool_wear":100}
+{"event_id":"customer-example-002","asset_id":"CNC-02","type":"M","air_temperature":300,"process_temperature":308,"rpm":1320,"torque":52,"tool_wear":190}

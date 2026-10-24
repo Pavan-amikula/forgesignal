@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+node_modules/
+frontend/dist/
+artifacts/*.db*
+artifacts/*.joblib
+.env
+.env.*
+!.env.example
+test-results/
+*.webm

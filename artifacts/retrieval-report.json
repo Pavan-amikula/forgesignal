@@ -1,0 +1,113 @@
+{
+  "cases": [
+    {
+      "question": "thermal cooling heat dissipation",
+      "expected": "RB-01",
+      "retrieved": [
+        "RB-01"
+      ],
+      "passed": true,
+      "mode": "extractive (no LLM key)"
+    },
+    {
+      "question": "low process air temperature difference ventilation",
+      "expected": "RB-01",
+      "retrieved": [
+        "RB-01"
+      ],
+      "passed": true,
+      "mode": "extractive (no LLM key)"
+    },
+    {
+      "question": "high torque power load operating envelope",
+      "expected": "RB-02",
+      "retrieved": [
+        "RB-02",
+        "RB-03"
+      ],
+      "passed": true,
+      "mode": "extractive (no LLM key)"
+    },
+    {
+      "question": "rotational speed obstruction supervisor",
+      "expected": "RB-02",
+      "retrieved": [
+        "RB-02",
+        "RB-01"
+      ],
+      "passed": true,
+      "mode": "extractive (no LLM key)"
+    },
+    {
+      "question": "tool wear overstrain inspection replacement",
+      "expected": "RB-03",
+      "retrieved": [
+        "RB-03"
+      ],
+      "passed": true,
+      "mode": "extractive (no LLM key)"
+    },
+    {
+      "question": "remaining useful life tool wear",
+      "expected": "RB-03",
+      "retrieved": [
+        "RB-03"
+      ],
+      "passed": true,
+      "mode": "extractive (no LLM key)"
+    },
+    {
+      "question": "missing stale sensor timestamp duplicates",
+      "expected": "RB-04",
+      "retrieved": [
+        "RB-04"
+      ],
+      "passed": true,
+      "mode": "extractive (no LLM key)"
+    },
+    {
+      "question": "invalid telemetry units connection",
+      "expected": "RB-04",
+      "retrieved": [
+        "RB-04"
+      ],
+      "passed": true,
+      "mode": "extractive (no LLM key)"
+    },
+    {
+      "question": "work order human approval escalation",
+      "expected": "RB-05",
+      "retrieved": [
+        "RB-05"
+      ],
+      "passed": true,
+      "mode": "extractive (no LLM key)"
+    },
+    {
+      "question": "supervisor approve reject audit",
+      "expected": "RB-05",
+      "retrieved": [
+        "RB-05"
+      ],
+      "passed": true,
+      "mode": "extractive (no LLM key)"
+    },
+    {
+      "question": "Who won the world cup?",
+      "expected": null,
+      "retrieved": [],
+      "passed": true,
+      "mode": "abstained"
+    },
+    {
+      "question": "Write a poem about the ocean",
+      "expected": null,
+      "retrieved": [],
+      "passed": true,
+      "mode": "abstained"
+    }
+  ],
+  "passed": 12,
+  "total": 12,
+  "description": "Authored 10 in-domain retrieval + 2 abstention smoke cases. No LLM judge, no semantic faithfulness score. Queries overlap indexed vocabulary; not an independent retrieval benchmark."
+}

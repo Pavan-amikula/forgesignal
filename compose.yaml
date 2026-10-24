@@ -1,0 +1,19 @@
+services:
+  app:
+    build: .
+    ports: ["127.0.0.1:8000:8000"]
+    environment:
+      FORGE_WRITE_TOKEN: ${FORGE_WRITE_TOKEN:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-gpt-4.1-mini}
+      FORGE_DB: /app/artifacts/state/forge.db
+    volumes: ["forge-state:/app/artifacts/state"]
+    restart: unless-stopped
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    command: ["--config.file=/etc/prometheus/prometheus.yml"]
+    volumes: ["./infra/prometheus.yml:/etc/prometheus/prometheus.yml:ro"]
+    ports: ["127.0.0.1:9090:9090"]
+    profiles: ["monitoring"]
+volumes:
+  forge-state:
