@@ -1,0 +1,130 @@
+{
+  "url": "https://github.com/Pavan-amikula/forgesignal/actions/runs/40123675295",
+  "commit": "f04931b66eddfa0cf6bd83459aa87c790e7f1443",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "verify",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run pip install -r requirements.lock.txt",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m backend.ml",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run pytest -q --junitxml=artifacts/junit.xml",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python -m scripts.evaluate_retrieval",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run npm ci && npm run build",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run docker build -t forgesignal:ci .",
+          "conclusion": "success"
+        },
+        {
+          "name": "Start built container",
+          "conclusion": "success"
+        },
+        {
+          "name": "Wait for container health",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify container SSE and MCP interoperability",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "publish",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run docker/login-action@v3",
+          "conclusion": "success"
+        },
+        {
+          "name": "Lowercase image namespace",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run docker/build-push-action@v6",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run docker/build-push-action@v6",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run docker/login-action@v3",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}

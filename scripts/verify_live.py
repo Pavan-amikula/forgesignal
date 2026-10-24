@@ -6,6 +6,7 @@ import os
 import sys
 import time
 import statistics
+import platform
 import httpx
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
@@ -47,7 +48,7 @@ async def main():
             "concurrency": 1,
             "median_ms": round(statistics.median(timings), 2),
             "p95_ms": round(sorted(timings)[47], 2),
-            "environment": "Local Windows loopback; not a capacity or production SLO claim",
+                "environment": f"Local {platform.system()} loopback; not a capacity or production SLO claim",
         }
     params = StdioServerParameters(
         command=sys.executable, args=["-m", "backend.mcp_server"], cwd=str(ROOT)

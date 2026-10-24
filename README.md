@@ -91,9 +91,10 @@ Other recorded checks:
 - **12/12 authored retrieval/abstention smoke cases**. This is a small vocabulary-overlapping test set, not a RAGAS faithfulness score or independent benchmark.
 - Real SSE replay and both MCP tools exercised through an actual stdio client session.
 - Ten browser workflow/responsive checks; no JavaScript page errors; 390px viewport passed the horizontal overflow check.
+- Linux CI passed the Docker build, container startup/health check, and live SSE/MCP verification against that running container. The Azure evaluation template compiled successfully with Bicep; Azure deployment was not performed.
 - Local snapshot endpoint: **8.12 ms median / 9.21 ms p95**, 50 sequential loopback requests. This is an environment-specific observation, not a throughput or production SLO claim.
 
-Machine-readable evidence: [model report](artifacts/model-report.json), [retrieval report](artifacts/retrieval-report.json), [live verification](artifacts/live-verification.json), [browser verification](artifacts/browser-verification.json), [JUnit](artifacts/junit.xml), [exported demo snapshot](artifacts/demo-snapshot.json). The demo snapshot shows synthetic operations and demo decisions only.
+Machine-readable evidence: [model report](artifacts/model-report.json), [Linux model report](artifacts/linux-model-report.json), [retrieval report](artifacts/retrieval-report.json), [live verification](artifacts/live-verification.json), [browser verification](artifacts/browser-verification.json), [CI record](artifacts/ci-verification.json), [Bicep compilation](artifacts/template-verification.json), [JUnit](artifacts/junit.xml), [exported demo snapshot](artifacts/demo-snapshot.json). The demo snapshot shows synthetic operations and demo decisions only.
 
 ## Architecture
 

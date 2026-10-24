@@ -1,0 +1,8 @@
+{
+  "compiler": "Bicep CLI 0.48.1 (cec7951cf6)",
+  "template": "infra/main.bicep",
+  "compilation": "passed",
+  "compiled_template_sha256": "01287b04dd93d96607d18599d530d75e54d0beebaaf46b7ed1962cd001f1e984",
+  "cloud_deployed": false,
+  "note": "Compilation validates syntax; no Azure subscription or live deployment was used."
+}

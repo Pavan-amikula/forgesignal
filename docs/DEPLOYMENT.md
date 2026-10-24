@@ -4,7 +4,7 @@
 
 Python 3.13 and Node 22 are the intended runtimes. `requirements.lock.txt` pins the resolved server/test environment; the Windows-only `pywin32` dependency has a platform marker. `frontend/package-lock.json` pins the frontend. CI is the cross-platform check rather than an assumption that the Windows environment proves Linux compatibility.
 
-The multi-stage Dockerfile builds TypeScript/React, installs Python dependencies, trains the model, and runs as a non-root user. Compose binds port 8000 to `127.0.0.1` and retains SQL state in a Docker volume. The model and training data remain in the image; runtime data is stored under a separate `artifacts/state` directory. Optional Prometheus scraping is configured in `infra/prometheus.yml`. The Linux GitHub Actions quality job passed dependency installation, training, tests, retrieval evaluation, frontend compilation and the Docker build: [verification run](https://github.com/Pavan-amikula/forgesignal/actions/runs/40123386566).
+The multi-stage Dockerfile builds TypeScript/React, installs Python dependencies, trains the model, and runs as a non-root user. Compose binds port 8000 to `127.0.0.1` and retains SQL state in a Docker volume. The model and training data remain in the image; runtime data is stored under a separate `artifacts/state` directory. Optional Prometheus scraping is configured in `infra/prometheus.yml`. The Linux GitHub Actions quality job passed dependency installation, training, tests, retrieval evaluation, frontend compilation and the Docker build: [verification run](https://github.com/Pavan-amikula/forgesignal/actions/runs/40123675295).
 
 ```bash
 docker compose up --build
