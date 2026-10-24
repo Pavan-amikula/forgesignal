@@ -6,7 +6,7 @@ Target alignment: AI-focused full-stack engineering and client product delivery,
 
 ## Text to give the resume-writing chat
 
-Use the following project facts to draft a concise, keyword-relevant resume entry. Preserve the distinction between measured implementation, authored team-enablement artifacts, optional integrations and future work. Do not invent employment, years of experience, client relationships, pair programming, mentoring activity, cloud deployment, production scale or financial impact. Select the strongest three or four bullets for the available space. Verify all links and the GitHub Actions run before describing CI or Docker results as passed. Keep job-specific keywords natural and supported by the evidence below.
+Use the following project facts to draft a concise, keyword-relevant resume entry. Preserve the distinction between measured implementation, authored team-enablement artifacts, optional integrations and future work. Do not invent employment, years of experience, client relationships, pair programming, mentoring activity, cloud deployment, production scale or financial impact. Select the strongest three or four bullets for the available space. The Linux quality job, including Docker build, passed in [this Actions run](https://github.com/Pavan-amikula/forgesignal/actions/runs/40123386566), and the Azure Bicep template compiled locally. No Azure deployment is claimed. Keep job-specific keywords natural and supported by the evidence below.
 
 ## Product and problem
 

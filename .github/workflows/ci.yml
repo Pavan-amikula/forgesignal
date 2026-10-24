@@ -24,13 +24,32 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - run: npm ci && npm run build
         working-directory: frontend
+      - run: docker build -t forgesignal:ci .
+      - name: Start built container
+        run: docker run --detach --name forge-smoke --publish 127.0.0.1:8000:8000 forgesignal:ci
+      - name: Wait for container health
+        run: |
+          python - <<'PY'
+          import time, urllib.request
+          for attempt in range(30):
+              try:
+                  with urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=2) as response:
+                      assert response.status == 200
+                      break
+              except Exception:
+                  time.sleep(2)
+          else:
+              raise SystemExit('Container did not become healthy')
+          PY
+      - name: Verify container SSE and MCP interoperability
+        run: python -m scripts.verify_live
       - uses: actions/upload-artifact@v4
         with:
           name: evaluation-and-tests
           path: |
             artifacts/*report.json
+            artifacts/*verification.json
             artifacts/junit.xml
-      - run: docker build -t forgesignal:ci .
   publish:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: verify

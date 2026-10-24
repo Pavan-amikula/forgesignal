@@ -12,7 +12,7 @@ The target role is a full-stack software engineering role in an AI-focused clien
 | LLM orchestration / agents | Genuine LangGraph graph, prompt boundary, evidence retrieval, optional LLM call, explicit fallback | Default demo is extractive; no autonomous ReAct loop or real provider benchmark |
 | MCP | Official SDK server plus successful stdio client verification | Two read-only tools only |
 | Evaluation frameworks | scikit-learn model metrics, pytest, authored retrieval harness and browser checks | No RAGAS score or LLM judge claim |
-| Cloud, Docker, CI/CD | Multi-stage Dockerfile, Compose, Actions quality/image pipeline, Azure Bicep template | Local Docker daemon unavailable during authoring; cloud not deployed |
+| Cloud, Docker, CI/CD | Multi-stage Dockerfile, Compose, Actions quality/image pipeline, Azure Bicep template | Linux CI Docker build passed; Bicep compiled; cloud not deployed |
 | Logging / monitoring / reliability | Correlation IDs, JSON logs, Prometheus, input rejection, idempotency, transactional decisions and provider fallback | No uptime or capacity guarantee |
 | User-centric design | Persona, task-oriented workflow, interface research, responsive browser evidence | No external user study conducted |
 | Agile teamwork / sprint ceremonies | Proposed backlog, review checklist, definition of done and team playbook | Artifacts are not proof of actual team ceremonies |
@@ -20,4 +20,4 @@ The target role is a full-stack software engineering role in an AI-focused clien
 | Communication / client leadership | Business hypothesis, tradeoffs, evidence map, demo and plain-language handoff | No client engagement or local-language proficiency evidence |
 | Education / degree / 2+ years | Must come from the candidate's actual history | Never infer from this repository |
 
-Cloud/container verification status must be updated from actual GitHub Actions results, rather than assumed from configuration. The local execution reports are included separately.
+Container build verification comes from the successful Linux quality job in [the actual Actions run](https://github.com/Pavan-amikula/forgesignal/actions/runs/40123386566). Cloud deployment remains untested; Bicep compilation verifies template syntax only. The local execution reports are included separately.
