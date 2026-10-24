@@ -16,7 +16,7 @@ The business hypothesis is that integrated telemetry and reference evidence coul
 
 ## Technical implementation
 
-Frontend: React 19 and TypeScript with strict compiler checking, Vite, original responsive CSS, and Lucide icons. The four views cover fleet overview, work orders, evidence library and model evaluation. Users can search assets, filter production lines, inspect sensor units, view score history, open an evidence drawer, inspect source passages and workflow trace, export a timestamped JSON snapshot, and make maintenance decisions. Desktop and 390px mobile browser checks are included, with a real captioned video and screenshots in the README.
+Frontend: React 19 and TypeScript with strict compiler checking, Vite, original responsive CSS, IBM Plex typography and Lucide icons. Five views cover Asset monitor, Signal explorer, Review queue, Procedure library and Model validation. The task-oriented workbench combines a sortable asset register, interactive facility schematic, contextual inspector, up-to-three-asset signal comparisons, metric selection and keyboard observation scrubbing. It supports freeze/resume of displayed snapshots while server telemetry continues, following and locally saved filter views, shared asset/filter URLs, Ctrl/Cmd+K navigation, filtered CSV export and raw observation/snapshot export. Maintenance requests have editable priority, owner/team, requested date and notes; reviewers can record a decision note. The redesign drew on primary MaintainX, Grafana, Siemens and Samsara portal references, documented in docs/INTERFACE_RESEARCH.md. Browser checks and a captioned recording demonstrate the actual interactions; no external user-study result is claimed.
 
 Backend: Python 3.13, FastAPI, Pydantic validation, SQLite, REST APIs and Server-Sent Events. A server-owned replay worker sends synthetic held-out readings every two seconds. Validated sensor events are scored and stored transactionally. Unique event IDs make repeated imports idempotent. An indexed asset-history query supports current telemetry and recent history. Work-order creation captures the complete asset evidence snapshot; a conditional status update prevents a second decision, and the audit record commits in the same transaction. Optional shared bearer-token protection covers write routes. It is not a full identity or RBAC system.
 
@@ -38,11 +38,11 @@ On the 2,000-record synthetic test partition, including 68 positive failures:
 - ROC AUC: **0.9732**, compared with **0.5000** for the baseline.
 - Precision: **0.7162**; recall: **0.7794**; F1: **0.7465**, at the validation-selected threshold 0.24.
 - Confusion matrix: **1,911 true negatives, 21 false positives, 15 false negatives, 53 true positives**.
-- **18 automated tests** passed for startup, monitoring, event deduplication, rejected telemetry, authorization, decision state transitions, captured evidence, retrieval/abstention, provider fallback, missing citations, feature/report contracts, replay and deterministic inference.
+- **22 automated tests** passed for startup, monitoring, event deduplication, rejected telemetry, authorization, decision state transitions, captured evidence, retrieval/abstention, provider fallback, missing citations, feature/report contracts, replay, deterministic inference, rich observation history, planning-field/reviewer-note persistence, invalid planning fields and additive legacy workspace migration.
 - **12/12 authored retrieval/abstention smoke cases** passed. This is not an independent relevance benchmark or a RAGAS score.
 - Live verification received three SSE messages with an increasing event count; actual MCP protocol calls passed.
-- **Ten browser workflow/responsive checks**, no JavaScript page errors, and no horizontal overflow at 390px viewport width.
-- **8.12 ms median and 9.21 ms p95** observed for 50 sequential local loopback snapshot requests. Avoid converting this into a production latency or scalability claim.
+- **26 browser workflow/responsive checks**, including freeze/resume with a running server, multi-asset comparison, signal selection, observation scrubbing, facility selection, following, saved views, CSV export, command search, editable planning requests and reviewer notes. No JavaScript page errors; table and facility layouts avoid page overflow at 390px width. Additional focused responsive/keyboard checks are recorded separately.
+- **8.48 ms median and 9.64 ms p95** observed for 50 sequential local loopback snapshot requests. Avoid converting this into a production latency or scalability claim.
 
 Artifacts are available in `artifacts/` and can be regenerated using the README commands. Model metrics are benchmark results on synthetic data. There is no measured financial, uptime, adoption or field-maintenance result.
 
@@ -54,7 +54,7 @@ React, TypeScript, Python, FastAPI, SQLite, scikit-learn, LangGraph, MCP, Promet
 - Built an end-to-end manufacturing operations application with React/TypeScript and FastAPI, combining SSE telemetry replay, SQL persistence, cited maintenance guidance and a human approval workflow with captured evidence and audit history.
 - Developed a leakage-controlled, six-feature gradient-boosting pipeline on UCI AI4I; achieved **0.823 average precision and 77.9% recall** on **2,000 held-out synthetic records**, with a validation-selected threshold and documented baseline comparison.
 - Implemented a bounded **LangGraph** retrieval workflow with source citations, explicit extractive/LLM modes, provider fallback and abstention; exposed and verified two read-only tools through the official **MCP** stdio protocol.
-- Added **18 automated tests**, browser workflow checks, Prometheus metrics and structured request tracing; packaged reproducible setup, a Docker build, GitHub Actions delivery configuration and an Azure evaluation template.
+- Added **22 automated tests** and **26 browser workflow checks**, including legacy-schema migration, planning-field persistence and live display controls; instrumented Prometheus metrics and structured request tracing, and packaged Docker/GitHub Actions delivery with an Azure evaluation template.
 
 Choose three bullets if space is limited. Use “configured” or “packaged” for cloud/container capabilities until an actual successful build/deployment is evidenced. Do not state that optional LLM mode was live-validated. Keep “synthetic” beside the evaluation claim.
 

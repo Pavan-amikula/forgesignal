@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "1600px monitor avoids page overflow",
+    "1600px command dialog autofocus and Escape restoration",
+    "1280px monitor avoids page overflow",
+    "1280px command dialog autofocus and Escape restoration",
+    "820px monitor avoids page overflow",
+    "820px command dialog autofocus and Escape restoration",
+    "Mobile saved view recall",
+    "Saved views survive reload",
+    "Compact navigation retains accessible names",
+    "Mobile review queue avoids overflow",
+    "390px monitor avoids page overflow",
+    "390px command dialog autofocus and Escape restoration"
+  ],
+  "total_checks": 12,
+  "passed": true
+}

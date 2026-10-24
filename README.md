@@ -17,7 +17,7 @@ ForgeSignal gives a manufacturing analyst one place to monitor a fleet, inspect 
 
 [![Captioned product walkthrough — click for MP4](docs/media/walkthrough.gif)](https://github.com/Pavan-amikula/forgesignal/raw/refs/heads/main/docs/media/walkthrough.mp4)
 
-**[Watch/download the full MP4 demonstration](https://github.com/Pavan-amikula/forgesignal/raw/refs/heads/main/docs/media/walkthrough.mp4)** · [Investigation screenshot](docs/media/investigation.png) · [Approval workflow](docs/media/work-orders.png) · [Evaluation](docs/media/evaluation.png) · [Mobile](docs/media/mobile.png)
+**[Watch/download the full MP4 demonstration](https://github.com/Pavan-amikula/forgesignal/raw/refs/heads/main/docs/media/walkthrough.mp4)** · [Asset comparison](docs/media/comparison.png) · [Facility schematic](docs/media/facility.png) · [Investigation](docs/media/investigation.png) · [Editable request](docs/media/create-order.png) · [Review queue](docs/media/work-orders.png) · [Model validation](docs/media/evaluation.png) · [Mobile](docs/media/mobile.png)
 
 The silent recording has explanatory captions and shows the real browser, server replay, retrieval response, work-order approval, and evaluation screens. It uses extractive mode, so reviewers can reproduce it without buying an LLM API key. The GIF is a lower-resolution preview of the same recording.
 
@@ -47,11 +47,11 @@ python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
 
 Open **[localhost:8000](http://localhost:8000)**. API schema: **[localhost:8000/docs](http://localhost:8000/docs)**. Codespaces users can forward port 8000 with the supplied dev container, then run the final Uvicorn command in the terminal.
 
-1. Start replay and watch event counts and asset readings update over SSE.
-2. Pause replay and select an asset. Open investigation and ask about torque, cooling, or tool wear.
-3. Inspect the response mode, source passages and execution trace.
-4. Draft a work order. In **Work orders**, expand the captured evidence and approve or reject it.
-5. Open **Model evaluation** to inspect the baseline, confusion matrix and methodological limits.
+1. In **Asset monitor**, start replay. Use **Freeze view** to inspect a stable snapshot while the server continues receiving data; resume to catch up.
+2. Filter or sort the register, follow assets, save a view, or switch to the interactive facility schematic. Check up to three assets to compare their readings.
+3. Switch signals, choose a reading window and scrub observations. The inspector exposes readings, event IDs and linked orders. Ctrl/Cmd+K jumps to workspace content.
+4. Use **Investigate evidence** to retrieve procedures and inspect citations. Create a work order with an editable title, priority, owner/team, requested date and notes.
+5. In **Review queue**, inspect the captured evidence and approve/reject with a reviewer note. **Procedure library** and **Model validation** retain the source and evaluation evidence.
 
 **Docker alternative:** `docker compose up --build`. Add `--profile monitoring` before `up` to start Prometheus at port 9090. Compose binds the app to loopback and persists SQL state in a named volume. See [deployment notes](docs/DEPLOYMENT.md) for container/cloud validation status.
 
@@ -59,12 +59,12 @@ Open **[localhost:8000](http://localhost:8000)**. API schema: **[localhost:8000/
 
 | Capability | Working implementation |
 |---|---|
-| User-centered frontend | React 19, strict TypeScript, custom responsive CSS, labeled sensor units, asset search, line filtering, source inspection and JSON export |
+| User-centered frontend | Five task-oriented React/TypeScript views; sortable asset register, facility schematic, contextual inspector, multi-asset plots, keyboard scrubbing, following/saved filters, command search and filtered CSV/JSON export |
 | Backend and SQL | FastAPI, Pydantic input contracts, SQLite WAL transactions, indexed asset history, unique event IDs and idempotent ingestion |
 | Real-time delivery | Server-owned two-second replay, SSE snapshots, connection status and browser reconnect |
 | ML pipeline | Six-feature histogram gradient boosting, train/validation/test separation, validation-only threshold selection, baseline and saved JSON report |
 | Evidence assistant | LangGraph retrieve → compose → validate; local sparse TF-IDF vector retrieval; cited extractive responses; optional LLM synthesis with timeout and fallback |
-| Human oversight | Proposals capture immutable evidence snapshots; one terminal approval/rejection; transactional decision audit; optional supervisor bearer token |
+| Human oversight | Editable planning fields, captured evidence snapshots, one terminal approval/rejection, reviewer notes and transactional audit; optional supervisor bearer token; additive schema migration for existing workspaces |
 | MCP integration | Official Python SDK, genuine stdio server/client, `search_runbooks` and `fleet_snapshot` read-only tools |
 | Reliability | Structured request logs, correlation IDs, Prometheus request/latency/ingestion metrics, health check and provider-failure handling |
 | Delivery | Locked dependencies, Docker multi-stage build, GitHub Actions checks and GHCR image publishing; Azure Bicep evaluation template |
@@ -87,12 +87,13 @@ Test failures: **68 / 2,000**. Confusion matrix: TN=1,911, FP=21, FN=15, TP=53. 
 
 Other recorded checks:
 
-- **18 automated tests** covering ingestion, invalid inputs, duplicate IDs, authorization, approval transitions, evidence snapshots, retrieval, abstention, provider failure and citation validation.
+- **22 automated tests** covering ingestion, invalid inputs, duplicate IDs, authorization, approval transitions, evidence snapshots, retrieval, abstention, provider failure, citation validation, rich history, planning fields, reviewer notes and legacy workspace migration.
 - **12/12 authored retrieval/abstention smoke cases**. This is a small vocabulary-overlapping test set, not a RAGAS faithfulness score or independent benchmark.
 - Real SSE replay and both MCP tools exercised through an actual stdio client session.
-- Ten browser workflow/responsive checks; no JavaScript page errors; 390px viewport passed the horizontal overflow check.
+- **26 browser workflow/responsive checks**, including live freeze/resume, comparisons, scrubbing, saved views, following, CSV export, command search, planning fields and reviewer-note persistence; no JavaScript page errors; table and facility layouts pass the 390px horizontal overflow check.
+- **12 focused interface checks** cover 390/820/1280/1600px layouts, command-dialog focus/return, compact navigation and mobile saved-view recall: [refinement results](artifacts/interface-refinements.json).
 - Linux CI passed the Docker build, container startup/health check, and live SSE/MCP verification against that running container. The Azure evaluation template compiled successfully with Bicep; Azure deployment was not performed.
-- Local snapshot endpoint: **8.12 ms median / 9.21 ms p95**, 50 sequential loopback requests. This is an environment-specific observation, not a throughput or production SLO claim.
+- Local snapshot endpoint: **8.48 ms median / 9.64 ms p95**, 50 sequential loopback requests. This is an environment-specific observation, not a throughput or production SLO claim.
 
 Machine-readable evidence: [model report](artifacts/model-report.json), [Linux model report](artifacts/linux-model-report.json), [retrieval report](artifacts/retrieval-report.json), [live verification](artifacts/live-verification.json), [browser verification](artifacts/browser-verification.json), [CI record](artifacts/ci-verification.json), [Bicep compilation](artifacts/template-verification.json), [JUnit](artifacts/junit.xml), [exported demo snapshot](artifacts/demo-snapshot.json). The demo snapshot shows synthetic operations and demo decisions only.
 
@@ -146,6 +147,7 @@ Start the read-only MCP server with `python -m backend.mcp_server`. Configure an
 ## Engineering decisions and handoff
 
 - [Research: papers, dataset, reference projects and interface sources](docs/RESEARCH.md)
+- [Portal interface research and the operations workbench design](docs/INTERFACE_RESEARCH.md)
 - [Architecture decisions and scaling boundaries](docs/ARCHITECTURE.md)
 - [Job-description evidence map](docs/REQUIREMENTS.md)
 - [Deployment and cloud template](docs/DEPLOYMENT.md)

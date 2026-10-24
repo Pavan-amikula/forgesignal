@@ -5,7 +5,7 @@ The target role is a full-stack software engineering role in an AI-focused clien
 | Role requirement | Repository evidence | Boundary |
 |---|---|---|
 | Build products from the ground up | End-to-end triage/maintenance product and working browser demonstration | Portfolio use case; no client adoption claim |
-| Readable, testable, maintainable code | Typed contracts, backend modules, strict TS, 18 tests and ADRs | Does not establish two years' experience |
+| Readable, testable, maintainable code | Typed contracts, backend modules, strict TS, 22 tests and ADRs | Does not establish two years' experience |
 | Frontend TypeScript / React | Four responsive product views, filtering, live updates, evidence drawer and export | Does not claim Angular, Vue or Next.js experience |
 | Backend Python | FastAPI, async SSE, background replay, model pipeline and MCP server | Does not claim Java, Node backend or .NET implementation |
 | SQL / NoSQL / vector / ETL | SQLite SQL persistence, source-to-feature pipeline, JSONL ingestion, local sparse vector retrieval | No NoSQL or dedicated vector database implementation |

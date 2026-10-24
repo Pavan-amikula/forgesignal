@@ -1,6 +1,6 @@
 import asyncio
 from contextlib import asynccontextmanager
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 import json
 import logging
 import os
@@ -181,8 +181,9 @@ def snapshot():
                     timestamp=latest["timestamp"] if latest else None,
                     history=[
                         {
+                            **json.loads(r["payload"]),
                             "score": round(r["score"], 4),
-                            "rpm": json.loads(r["payload"])["rpm"],
+                            "timestamp": r["timestamp"],
                         }
                         for r in reversed(rows)
                     ],
@@ -281,6 +282,10 @@ def assistant(body: Question):
 class Proposal(BaseModel):
     asset_id: str = Field(pattern=r"^CNC-0[1-6]$")
     title: str = Field(min_length=5, max_length=200)
+    priority: str = Field(default="normal", pattern="^(normal|high|urgent)$")
+    assignee: str = Field(default="", max_length=100)
+    due_date: date | None = None
+    notes: str = Field(default="", max_length=2000)
 
 
 @app.post("/api/orders", status_code=201)
@@ -288,8 +293,18 @@ def propose(body: Proposal, actor=Depends(write_access)):
     asset = next(a for a in snapshot()["assets"] if a["id"] == body.asset_id)
     with store.connect() as db:
         cur = db.execute(
-            "INSERT INTO orders(asset_id,title,status,evidence,created_at) VALUES (?,?,?,?,?)",
-            (body.asset_id, body.title, "pending", json.dumps(asset), now()),
+            "INSERT INTO orders(asset_id,title,status,evidence,created_at,priority,assignee,due_date,notes) VALUES (?,?,?,?,?,?,?,?,?)",
+            (
+                body.asset_id,
+                body.title,
+                "pending",
+                json.dumps(asset),
+                now(),
+                body.priority,
+                body.assignee,
+                body.due_date.isoformat() if body.due_date else None,
+                body.notes,
+            ),
         )
         db.execute(
             "INSERT INTO audit(order_id,action,actor,timestamp) VALUES (?,?,?,?)",
@@ -300,6 +315,7 @@ def propose(body: Proposal, actor=Depends(write_access)):
 
 class Decision(BaseModel):
     status: str = Field(pattern="^(approved|rejected)$")
+    note: str = Field(default="", max_length=1000)
 
 
 @app.post("/api/orders/{order_id}/decision")
@@ -312,8 +328,8 @@ def decision(order_id: int, body: Decision, actor=Depends(write_access)):
         if cur.rowcount != 1:
             raise HTTPException(409, "Order missing or already decided")
         db.execute(
-            "INSERT INTO audit(order_id,action,actor,timestamp) VALUES (?,?,?,?)",
-            (order_id, body.status, actor, now()),
+            "INSERT INTO audit(order_id,action,actor,timestamp,note) VALUES (?,?,?,?,?)",
+            (order_id, body.status, actor, now(), body.note),
         )
     return {"id": order_id, "status": body.status}
 

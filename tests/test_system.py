@@ -54,6 +54,72 @@ def test_conflicting_id_rejected(client):
     assert client.get("/api/snapshot").json()["events"] == 7
 
 
+def test_rich_history_preserves_units_and_event_identity(client):
+    client.post("/api/telemetry", json=reading("history-check"))
+    history = client.get("/api/snapshot").json()["assets"][0]["history"]
+    event = history[-1]
+    assert event["event_id"] == "history-check"
+    assert event["torque"] == 40 and event["tool_wear"] == 100
+    assert event["process_temperature"] == 310 and event["timestamp"]
+
+
+def test_planning_fields_and_reviewer_note_round_trip(client):
+    payload = {
+        "asset_id": "CNC-01",
+        "title": "Inspect the coolant circuit",
+        "priority": "high",
+        "assignee": "Shift maintenance",
+        "due_date": "2026-11-01",
+        "notes": "Review the thermal runbook before inspection.",
+    }
+    created = client.post("/api/orders", json=payload)
+    assert created.status_code == 201
+    order_id = created.json()["id"]
+    client.post(
+        f"/api/orders/{order_id}/decision",
+        json={"status": "rejected", "note": "Need the approved site procedure first."},
+    )
+    data = client.get("/api/snapshot").json()
+    order = data["orders"][0]
+    assert all(
+        order[k] == payload[k] for k in ("priority", "assignee", "due_date", "notes")
+    )
+    assert data["audit"][0]["note"] == "Need the approved site procedure first."
+
+
+def test_invalid_planning_fields_rejected(client):
+    for field, value in [
+        ("priority", "emergency"),
+        ("due_date", "tomorrow"),
+        ("assignee", "x" * 101),
+    ]:
+        response = client.post(
+            "/api/orders",
+            json={"asset_id": "CNC-01", "title": "Inspect machine", field: value},
+        )
+        assert response.status_code == 422
+
+
+def test_existing_workspace_migration_is_idempotent(tmp_path, monkeypatch):
+    import sqlite3
+    from backend import store
+
+    path = tmp_path / "legacy.db"
+    with sqlite3.connect(path) as db:
+        db.execute(
+            "CREATE TABLE orders (id INTEGER PRIMARY KEY, asset_id TEXT,title TEXT,status TEXT,evidence TEXT,created_at TEXT)"
+        )
+        db.execute(
+            "INSERT INTO orders VALUES (1,'CNC-01','Legacy order','pending','{}','2026-10-24')"
+        )
+    monkeypatch.setenv("FORGE_DB", str(path))
+    store.init()
+    store.init()
+    with store.connect() as db:
+        order = dict(db.execute("SELECT * FROM orders").fetchone())
+        assert order["title"] == "Legacy order" and order["priority"] == "normal"
+
+
 @pytest.mark.parametrize(
     "key,value",
     [

@@ -20,7 +20,13 @@ Set `FORGE_WRITE_TOKEN` to a random secret in the server environment. Enter that
 
 `GET /api/health`: process can reach SQL and model has loaded. `GET /metrics`: Prometheus request count, request-duration histogram and accepted event count. Structured request logs include `request_id`; HTTP replies carry `X-Request-ID`. Requests with errors such as 422 or 409 are counted by status. Browser stream status reports SSE connectivity, not sensor freshness or a physical connection.
 
-If replay does not move, start it in Overview and check `/api/snapshot`. If no UI loads, build `frontend` and restart. If an LLM call fails, the visible response mode explains extractive fallback. If the write token is missing, the server returns 401. A repeated decision returns 409. Invalid/target-leaking telemetry returns 422 without insertion.
+If replay does not move, start it in Asset monitor and check `/api/snapshot`. Freeze view holds the displayed readings but does not stop server replay; Pause replay controls the server. Leaving monitor/explorer resumes live snapshots for decision review. If no UI loads, build `frontend` and restart. If an LLM call fails, the visible response mode explains extractive fallback. If the write token is missing, the server returns 401. A repeated decision returns 409. Invalid/target-leaking telemetry returns 422 without insertion.
+
+## Workbench controls and planning fields
+
+Asset monitor offers sorting, status/line/search filters, Following, saved local views, table/facility modes, CSV export and an inspector. Select up to three checkboxes for comparison; Signal explorer supports metric selection, reading windows, hovering and a keyboard observation scrubber. Curves align by arrival index, not synchronized physical timestamps. Ctrl/Cmd+K opens workspace search; `/` focuses asset search. Share view copies page, asset and filters into the URL; it does not share local watchlists, credentials or server state.
+
+Saved views and following lists use browser storage. A compact saved-view picker remains available when the navigation rail collapses. The inspector has readings, event IDs and linked orders. A planning request records an editable title, priority, owner/team, optional requested date and notes. Owner/team is a text label, not an account assignment or notification. The requested date does not schedule equipment. Reviewer notes are retained in the same transaction as the decision audit. Startup adds missing schema columns to legacy workspaces without dropping their records.
 
 ## MCP client configuration
 
@@ -45,4 +51,4 @@ Windows executable: `.venv/Scripts/python.exe`. Clients differ in whether `cwd` 
 
 Train the model before tests. Run the commands in README. Browser recording adds a proposal and approval to the demo database; it is an integration walkthrough, not a nondestructive read. Optional browser packages: `pip install playwright imageio-ffmpeg`; `python -m playwright install chromium`.
 
-The recording is silent with on-screen captions. MP4/GIF are rendered from the real browser video; screenshots come from Playwright. The human-readable demo describes synthetic replay throughout. No synthetic performance statistics are overlaid on the application.
+The recording is silent with on-screen captions. MP4/GIF are rendered from the real browser video; screenshots come from Playwright. The human-readable demo describes synthetic replay throughout. No synthetic performance statistics are overlaid on the application. `python -m scripts.verify_interface` performs additional responsive/keyboard checks at 390/820/1280/1600px, including focus restoration and saved-view recall.

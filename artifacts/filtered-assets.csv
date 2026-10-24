@@ -1,0 +1,2 @@
+"Asset","Name","Line","State","Failure score","RPM","Torque (Nm)","Process temperature (K)","Tool wear (min)","Arrival timestamp"
+"CNC-04","Finishing mill 04","Machining B","Monitoring","0.0001","1528","40","308.6","123","2026-10-24T19:31:32.971979+00:00"

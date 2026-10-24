@@ -4,6 +4,8 @@
 
 User: a manufacturing operations analyst triaging sensor observations, and a supervisor deciding whether a maintenance proposal should proceed. The software records decisions; it never actuates machinery. The primary journey is overview → selected asset → evidence → proposal → approval/rejection → audit.
 
+Version 1.1 replaces the card overview with a register/plot/inspector workbench. The five destinations are Asset monitor, Signal explorer, Review queue, Procedure library and Model validation. See [portal research and interaction decisions](INTERFACE_RESEARCH.md). Local following/views persist in browser storage; shared URLs contain asset/filter selections. Display freeze buffers the live feed without stopping the server; review pages automatically resume current state.
+
 The business hypothesis is that consolidated telemetry, inspectable evidence and an explicit review queue could shorten investigation time. No business impact has been measured. A pilot would measure median triage time, useful recommendation rate, alert burden and decision reversals against an agreed baseline.
 
 ## ADR 01: React, TypeScript and FastAPI
@@ -15,6 +17,8 @@ React delivers a responsive, stateful workspace; TypeScript checks data renderin
 SQLite is sufficient for a portable, low-volume demonstration. Events use unique external IDs, an indexed `(asset_id, seq)` access path, and WAL transactions. Work orders capture the full asset snapshot at creation. State transition and audit insert commit together, and the conditional update prevents a second decision. The audit is application-managed and not tamper-proof against a database administrator.
 
 The process-local replay worker is not a distributed scheduler. Run one Uvicorn worker and one app replica. A real deployment would use PostgreSQL for shared state, a broker or managed event stream, independent ingestion workers, retention/partition policies, tenant scoping and an outbox for reliable downstream tasks. Avoid mounting WAL SQLite on network file shares; use a proper database service for shared persistence.
+
+Planning fields (priority, owner/team label, requested date and notes) and decision notes are persisted. Startup uses an additive, idempotent column migration for older local workspaces. These fields support planning only; there is no scheduling engine, user directory or owner-notification service. Telemetry history now returns its validated sensor values, arrival timestamp and event ID so plots and inspection exports can use actual stored readings.
 
 ## ADR 03: current-state classifier, not prognostics
 

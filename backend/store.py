@@ -37,3 +37,20 @@ def init():
         CREATE TABLE IF NOT EXISTS audit (id INTEGER PRIMARY KEY AUTOINCREMENT, order_id INTEGER NOT NULL, action TEXT NOT NULL, actor TEXT NOT NULL, timestamp TEXT NOT NULL);
         """
         )
+        # Additive migration preserves existing demo workspaces and decision history.
+        additions = {
+            "orders": {
+                "priority": "TEXT NOT NULL DEFAULT 'normal'",
+                "assignee": "TEXT NOT NULL DEFAULT ''",
+                "due_date": "TEXT",
+                "notes": "TEXT NOT NULL DEFAULT ''",
+            },
+            "audit": {"note": "TEXT NOT NULL DEFAULT ''"},
+        }
+        for table, columns in additions.items():
+            existing = {
+                row["name"] for row in db.execute(f"PRAGMA table_info({table})")
+            }
+            for column, definition in columns.items():
+                if column not in existing:
+                    db.execute(f"ALTER TABLE {table} ADD COLUMN {column} {definition}")
