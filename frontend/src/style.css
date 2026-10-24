@@ -4474,4 +4474,13 @@ button svg {
     border-color: #d9e3f2;
   }
 }
-.masthead-access{display:flex;align-items:center;justify-content:center;background:none;border:1px solid #40516d;color:#a8bddf;border-radius:3px;padding:6px;}
+.masthead-access {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid #40516d;
+  color: #a8bddf;
+  border-radius: 3px;
+  padding: 6px;
+}

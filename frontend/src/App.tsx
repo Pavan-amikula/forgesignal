@@ -431,7 +431,16 @@ export default function App() {
           <span>Jump to asset, order, procedure…</span>
           <kbd>Ctrl K</kbd>
         </button>
-        {snapshot?.write_auth_required && <button className="masthead-access" aria-label="Supervisor write access" title="Supervisor write access" onClick={()=>setModal('access')}><KeyRound size={14}/></button>}
+        {snapshot?.write_auth_required && (
+          <button
+            className="masthead-access"
+            aria-label="Supervisor write access"
+            title="Supervisor write access"
+            onClick={() => setModal("access")}
+          >
+            <KeyRound size={14} />
+          </button>
+        )}
         <span className={`stream-status ${connected ? "online" : ""}`}>
           <i />
           {connected ? "Connected" : "Reconnecting"}
